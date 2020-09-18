@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hostname
+  name: hostname-server
+spec:
+  selector:
+    matchLabels:
+      app: hostname
+  minReadySeconds: 60
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: hostname
+    spec:
+      containers:
+      - name: hostname-server
+        image: k8s.gcr.io/serve_hostname:v1.4
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 9376
+          protocol: TCP
+      terminationGracePeriodSeconds: 90
