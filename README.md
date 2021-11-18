@@ -18,7 +18,7 @@ curl -ks -X GET -H 'Authorization: Bearer $TOKEN' "https://prometheus-k8s-opensh
 kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).spec.containers[].image'
 ```
 
-## Listar imagenes por Pods y Namespace
+## Listar imágenes por Pods y Namespace
 ```shell
 oc get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' | sort
 
