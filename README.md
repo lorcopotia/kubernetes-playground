@@ -1,4 +1,4 @@
-# Notas de Kubernetes
+# Notas de Kubernetes/Openshift
 
 
 # Acceso a la API de Kubernetes
