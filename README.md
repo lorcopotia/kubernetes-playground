@@ -1,15 +1,27 @@
 # Notas de Kubernetes/Openshift
 
+# Making adjustments to Vim for a better yaml editing
+
+```yaml
+set tabstop=2 softtabstop=2 shiftwidth=2
+set expandtab
+set number ruler
+set autoindent smartindent
+syntax enable
+filetype plugin indent on
+```
+
 # Setting Up Kubeconfig:
 
 kubectl config view # Show Merged kubeconfig settings.
 
-## use multiple kubeconfig files at the same time and view merged config
+## Use multiple kubeconfig files at the same time and view merged config
 KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 
 
 kubectl config view
 
-## get the password for the e2e user
+## Get the password for the e2e user
+```shell
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
 kubectl config view -o jsonpath='{.users[].name}'    # display the first user
@@ -17,18 +29,20 @@ kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
 kubectl config get-contexts                          # display list of contexts 
 kubectl config current-context                       # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
-
-## add a new cluster to your kubeconf that supports basic auth
+```
+## Add a new cluster to your kubeconf that supports basic auth
+```shell
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
-
-## permanently save the namespace for all subsequent kubectl commands in that context.
+```
+## Permanently save the namespace for all subsequent kubectl commands in that context.
 kubectl config set-context --current --namespace=ggckad-s2
 
-## set a context utilizing a specific username and namespace.
+## Set a context utilizing a specific username and namespace.
+```shell
 kubectl config set-context gce --user=cluster-admin --namespace=foo && kubectl config use-context gce
  
 kubectl config unset users.foo                       # delete user foo
-
+```
 # Acceso a la API de Kubernetes
 ```shell
 APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
