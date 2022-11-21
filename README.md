@@ -9,6 +9,9 @@ set number ruler
 set autoindent smartindent
 syntax enable
 filetype plugin indent on
+
+" Force saving files that require root permission 
+cnoremap w!! w !sudo tee > /dev/null %
 ```
 
 # Setting Up Kubeconfig:
