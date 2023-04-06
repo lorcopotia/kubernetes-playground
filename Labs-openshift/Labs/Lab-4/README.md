@@ -102,7 +102,7 @@
       }
     }  
 
-  3.6. Click **Guargar** para guardar el pipeline.
+  3.6. Click **Guardar** para guardar el pipeline.
 
   3.7. En la pagina del Job, seleccionar **Construir ahora**.
 
@@ -186,7 +186,7 @@
       }
     }
 
-  5.2. Click **Guargar** para guardar el pipeline.
+  5.2. Click **Guardar** para guardar el pipeline.
 
   5.3. En la pagina del Job, seleccionar **Construir ahora**.
 
