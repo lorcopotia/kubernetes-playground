@@ -1,5 +1,4 @@
-FROM nginx
-COPY index.html /usr/share/nginx/html/
-EXPOSE 80
-ENV ip_address=$(hostname -I | cut -d' ' -f1)
-ENV hostname=$(hostname)
+FROM nginx:mainline-alpine
+RUN rm /etc/nginx/conf.d/*
+ADD helloworld.conf /etc/nginx/conf.d/
+ADD index.html /usr/share/nginx/html/
