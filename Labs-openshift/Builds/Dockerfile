@@ -1,5 +1,10 @@
-FROM nginx
-COPY index.html /usr/share/nginx/html/
+FROM alpine:3.5
+
+# install nginx and nginx echo module
+RUN apk add -u --no-cache nginx nginx-mod-http-echo
+
+COPY files/root /
+
 EXPOSE 80
-ENV ip_address=$(hostname -I | cut -d' ' -f1)
-ENV hostname=$(hostname)
+
+CMD ["nginx"]
