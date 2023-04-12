@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:latest
 
 # install nginx and nginx echo module
 RUN apk add -u --no-cache nginx nginx-mod-http-echo
