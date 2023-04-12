@@ -15,10 +15,16 @@ docker run -p 8080:80 mi-servidor-web
 
 ## Openshift
 
-En el menu de la izquierda dentro de Builds:
+Desde la terminal, ejecutar el siguiente comando:
+```shell
+oc new-build https://github.com/lorcopotia/kubernetes-playground.git --context-dir=Labs-openshift/Builds --name=test-bc
+```
 
-BuildConfigs > Create, añadir contextDir para que luzca de esta manera:
-
-```yaml
-Codigo
+Luego crear un Deployment:
+```shell
+oc new-app test-bc:latest --name=my-deploymentconfig
+```
+Exponemos el servicio:
+```shell
+oc expose service/my-deploymentconfig
 ```
