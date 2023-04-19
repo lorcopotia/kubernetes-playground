@@ -1,6 +1,6 @@
 # Notas de Kubernetes/Openshift
 
-# Making adjustments to Vim for a better yaml editing
+# Modificando los parametros de Vim para facilitar la edicion de YAMLs
 
 ```yaml
 set tabstop=2 softtabstop=2 shiftwidth=2
@@ -14,16 +14,16 @@ filetype plugin indent on
 cnoremap w!! w !sudo tee > /dev/null %
 ```
 
-# Setting Up Kubeconfig:
+# Configurando Kubeconfig:
 
 kubectl config view # Show Merged kubeconfig settings.
 
-## Use multiple kubeconfig files at the same time and view merged config
+## Utilizar multiples kubeconfig al mismo tiempo en una vista conjunta
 KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 
 
 kubectl config view
 
-## Get the password for the e2e user
+## Obtener password para e2e user
 ```shell
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
@@ -33,11 +33,11 @@ kubectl config get-contexts                          # display list of contexts
 kubectl config current-context                       # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 ```
-## Add a new cluster to your kubeconf that supports basic auth
+## Añadir un nuevo kubeconf que soporta basic auth
 ```shell
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 ```
-## Permanently save the namespace for all subsequent kubectl commands in that context.
+## Utilizar un namespace especifico para todos los siguientes comandos kubectl en el contexto.
 kubectl config set-context --current --namespace=ggckad-s2
 
 ## Set a context utilizing a specific username and namespace.
@@ -68,4 +68,66 @@ kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-
 oc get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' | sort
 
 oc get pods --namespace <namespace> -o jsonpath="{.items[*].spec.containers[*].image}"
+```
+# Manejo de usuarios
+
+## Nuevo usuario HTPASSWD
+```shell
+htpasswd -bB htpasswd USUARIO PASSWD
+```
+
+## Crear secreto utilizando el fichero anterior como fuente
+```shell
+oc create secret generic htpass-secret --from-file=htpasswd=htpasswd --dry-run=client -o yaml -n openshift-config | oc replace -f -
+```
+
+## Verificar el cambio
+```shell
+oc get secret htpass-secret -ojsonpath={.data.htpasswd} -n openshift-config | base64 --decode
+```
+
+## Crear cluster role con permisos Reader para el usuario 
+```shell
+oc create -f discovery_role.yaml
+```
+
+```yaml
+apiVersion: v1
+kind: ClusterRole
+metadata:
+  namespace: default
+  name: discovery_role
+rules:
+- apiGroups: [""]
+  resources: ["nodes", "pods", "namespaces", "services", "replicationcontrollers", "persistentvolumes", "persistentvolumeclaims", "resourcequotas", "configmaps", "serviceaccounts"]
+  verbs: ["get", "list"]
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list"]
+- apiGroups: ["apps", "extensions"]
+  resources: ["replicasets", "deployments", "daemonsets", "statefulsets"]
+  verbs: ["get", "list"]
+- apiGroups: ["storage.k8s.io"]
+  resources: ["storageclasses"]
+  verbs: ["get", "list"]
+- apiGroups: ["networking.k8s.io", "extensions"]
+  resources: ["ingresses"]
+  verbs: ["get", "list"]
+- apiGroups: ["route.openshift.io"]
+  resources: ["routes"]
+  verbs: ["get", "list"]
+- apiGroups: ["network.openshift.io"]
+  resources: ["clusternetworks"]
+  verbs: ["get", "list"]
+- apiGroups: ["apps.openshift.io"]
+  resources: ["deploymentconfigs"]
+  verbs: ["get", "list"]
+- apiGroups: ["quota.openshift.io"]
+  resources: ["clusterresourcequotas"]
+  verbs: ["get", "list"]
+```
+
+## Otorgar permisos al usuario
+```shell
+oc adm policy add-cluster-role-to-user discovery_role USUARIO
 ```
