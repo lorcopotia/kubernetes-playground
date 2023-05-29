@@ -3,11 +3,11 @@
 OpenShift es una plataforma de contenedores y orquestación de aplicaciones basada en Kubernetes, diseñada para simplificar el desarrollo, implementación y gestión de aplicaciones en entornos de nube y local.
 
 ## Métodos de instalación
-1- Instalación de OpenShift Container Platform (UPI): Este método implica instalar y configurar manualmente OpenShift en infraestructuras locales o en la nube, siguiendo los pasos detallados en la documentación oficial. Proporciona un mayor control y personalización, pero requiere un conocimiento más profundo de OpenShift y los requisitos de infraestructura.
+1. Instalación de OpenShift Container Platform (UPI): Este método implica instalar y configurar manualmente OpenShift en infraestructuras locales o en la nube, siguiendo los pasos detallados en la documentación oficial. Proporciona un mayor control y personalización, pero requiere un conocimiento más profundo de OpenShift y los requisitos de infraestructura.
 
-1- Instalación asistida (IPI): OpenShift ofrece una experiencia de instalación más guiada a través de una herramienta llamada "OpenShift Installer". Esta herramienta simplifica el proceso de instalación, proporcionando una interfaz intuitiva y automatizando muchas de las tareas de configuración. Permite la instalación en infraestructuras locales o en la nube, como AWS, Azure, GCP, etc.
+1. Instalación asistida (IPI): OpenShift ofrece una experiencia de instalación más guiada a través de una herramienta llamada "OpenShift Installer". Esta herramienta simplifica el proceso de instalación, proporcionando una interfaz intuitiva y automatizando muchas de las tareas de configuración. Permite la instalación en infraestructuras locales o en la nube, como AWS, Azure, GCP, etc.
 
-1- Instalación de OpenShift Dedicated: Esta opción es proporcionada directamente por Red Hat y ofrece una instalación y administración totalmente gestionada de OpenShift en la nube. Es ideal para aquellos que prefieren una solución llave en mano y no desean lidiar con la infraestructura y el mantenimiento del clúster.
+1. Instalación de OpenShift Dedicated: Esta opción es proporcionada directamente por Red Hat y ofrece una instalación y administración totalmente gestionada de OpenShift en la nube. Es ideal para aquellos que prefieren una solución llave en mano y no desean lidiar con la infraestructura y el mantenimiento del clúster.
 
 ## Instalación IPI:
 Previamente a la instalacion hay informacion es requisito tener la informacion del fichero [install-config.yaml](https://examples.openshift.pub/cluster-installation/vmware/ipi-proxy/#example-install-configyaml) debidamente completada asi como demás requisitos de DNS, DHCP, firewall, etc.
