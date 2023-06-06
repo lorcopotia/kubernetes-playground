@@ -131,3 +131,7 @@ rules:
 ```shell
 oc adm policy add-cluster-role-to-user discovery_role USUARIO
 ```
+## Openshift upgrade message: Precondition "ClusterVersionUpgradeable" failed
+```shell
+oc patch clusterversion version --type json -p '[{"op": "remove", "path": "/spec/overrides"}]'
+```
