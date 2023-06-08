@@ -63,14 +63,17 @@ curl -ks -X GET -H 'Authorization: Bearer $TOKEN' "https://prometheus-k8s-opensh
 kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).spec.containers[].image'
 ```
 
+# Manejo de imágenes
 ## Listar imágenes por Pods y Namespace
 ```shell
 oc get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' | sort
 
 oc get pods --namespace <namespace> -o jsonpath="{.items[*].spec.containers[*].image}"
-```
-# Manejo de usuarios
 
+ oc import-image image-custom --from=docker.io/lorcopotia/image-custom:latest --confirm
+```
+
+# Manejo de usuarios
 ## Nuevo usuario HTPASSWD
 ```shell
 htpasswd -bB htpasswd USUARIO PASSWD
