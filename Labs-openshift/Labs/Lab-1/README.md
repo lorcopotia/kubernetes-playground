@@ -7,7 +7,7 @@ Nota: Cambiar el nombre del namespace en el fichero yaml por el que se este usan
 ### 1. Logarse en el cluster
 Obtener el comando de logging desde la consola de OCP -> Copy Logging Command -> Display Token (ejemplo):
 
-    $ oc login --token=FmJXS2XQoseeC3bBZvhfmZOCtk1kD3AWaQzQE_01Ldg --server=https://api.ocp.hx.logicalis.com:6443
+    $ oc login --token=FmJXS2XQoseeC3bBZvhfmZOCtk1kD3AWaQzQE_01Ldg --server=https://api.ocp.hx.example.com:6443
 
 ### 2. Crear un proyecto
 
