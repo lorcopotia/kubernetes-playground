@@ -15,13 +15,16 @@ cnoremap w!! w !sudo tee > /dev/null %
 ```
 
 # Configurando Kubeconfig:
-
+```shell
 kubectl config view # Show Merged kubeconfig settings.
+```
 
 ## Utilizar multiples kubeconfig al mismo tiempo en una vista conjunta
+```shell
 KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 
 
 kubectl config view
+```
 
 ## Obtener password para e2e user
 ```shell
@@ -38,15 +41,16 @@ kubectl config use-context my-cluster-name           # set the default context t
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 ```
 ## Utilizar un namespace especifico para todos los siguientes comandos kubectl en el contexto.
+```shell
 kubectl config set-context --current --namespace=ggckad-s2
 
 ## Set a context utilizing a specific username and namespace.
-```shell
 kubectl config set-context gce --user=cluster-admin --namespace=foo && kubectl config use-context gce
  
 kubectl config unset users.foo                       # delete user foo
 ```
-# Acceso a la API de Kubernetes
+
+## Acceso a la API de Kubernetes
 ```shell
 APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
 TOKEN=$(kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode )
@@ -63,6 +67,7 @@ curl -ks -X GET -H 'Authorization: Bearer $TOKEN' "https://prometheus-k8s-opensh
 kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).spec.containers[].image'
 ```
 
+# Openshift
 # Manejo de imágenes
 ## Listar imágenes por Pods y Namespace
 ```shell
@@ -87,6 +92,11 @@ oc create secret generic htpass-secret --from-file=htpasswd=htpasswd --dry-run=c
 ## Verificar el cambio
 ```shell
 oc get secret htpass-secret -ojsonpath={.data.htpasswd} -n openshift-config | base64 --decode
+```
+
+## Revisando problemas de inicio de sesión
+```shell
+oc login api.openshift.example.com:6443 --loglevel=6
 ```
 
 ## Crear cluster role con permisos Reader para el usuario 
