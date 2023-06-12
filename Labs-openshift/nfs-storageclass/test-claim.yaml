@@ -1,3 +1,20 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-storage
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: managed-nfs-storage
+  nfs:
+    path: /srv/nfs-storage
+    server: NFS_SERVER_IP
+
+---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -10,3 +27,4 @@ spec:
   resources:
     requests:
       storage: 1Mi
+  volumeName: nfs-storage
