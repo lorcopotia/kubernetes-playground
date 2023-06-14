@@ -1,5 +1,19 @@
 # Instrucciones Laboratorio 3
 
+## Desplegar controladores 
+
+### ReplicaSets
+(Ejemplo)[https://kubernetes.io/es/docs/concepts/workloads/controllers/replicaset/#ejemplo]
+
+### Deployments
+(Ejemplo)[https://kubernetes.io/es/docs/concepts/workloads/controllers/deployment/#crear-un-deployment]
+
+### StatefulSets
+(Ejemplo)[https://kubernetes.io/es/docs/concepts/workloads/controllers/statefulset/#componentes]
+
+### DaemonSet
+(Ejemplo)[https://kubernetes.io/es/docs/concepts/workloads/controllers/daemonset/#crear-un-daemonset]
+
 ## Desplegar aplicaciones desde la Consola de OCP
 
 ### Desplegar una aplicación en OpenShift desde la consola, utilizando un código fuente de un repo en GitHub
