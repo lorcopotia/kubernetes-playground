@@ -3,16 +3,16 @@
 ## Desplegar controladores 
 
 ### ReplicaSets
-(Ejemplo)[https://kubernetes.io/es/docs/concepts/workloads/controllers/replicaset/#ejemplo]
+[Ejemplo](https://kubernetes.io/es/docs/concepts/workloads/controllers/replicaset/#ejemplo)
 
 ### Deployments
-(Ejemplo)[https://kubernetes.io/es/docs/concepts/workloads/controllers/deployment/#crear-un-deployment]
+[Ejemplo](https://kubernetes.io/es/docs/concepts/workloads/controllers/deployment/#crear-un-deployment)
 
 ### StatefulSets
-(Ejemplo)[https://kubernetes.io/es/docs/concepts/workloads/controllers/statefulset/#componentes]
+[Ejemplo](https://kubernetes.io/es/docs/concepts/workloads/controllers/statefulset/#componentes)
 
 ### DaemonSet
-(Ejemplo)[https://kubernetes.io/es/docs/concepts/workloads/controllers/daemonset/#crear-un-daemonset]
+[Ejemplo](https://kubernetes.io/es/docs/concepts/workloads/controllers/daemonset/#crear-un-daemonset)
 
 ## Desplegar aplicaciones desde la Consola de OCP
 
