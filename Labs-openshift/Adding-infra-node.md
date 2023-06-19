@@ -17,9 +17,9 @@ Cualquier nodo que corra cualquier otro contenedor, pod o componente es un worke
 
 ## Procedimiento
 
-1. [Añadir un nodo worker](https://github.com/lorcopotia/kubernetes-playground/blob/master/Labs-openshift/Adding-worker-node.md)
+1. [Crear un MachineSet](https://github.com/lorcopotia/kubernetes-playground/blob/master/Labs-openshift/Adding-worker-node.md) para el nodo infra.
 
-2. Etiquetar los nodos de "infra":
+2. En su efecto se puede etiquetar los nodos de "infra" de la siguiente manera:
 
        $ oc label node <nodo> node-role.kubernetes.io/infra=""
 
@@ -28,7 +28,7 @@ Cualquier nodo que corra cualquier otro contenedor, pod o componente es un worke
        $ oc get nodes
        $ oc get node --show-labels
 
-4. Crear un `MachineConfigPool` para los nodos de infra:
+4. En caso necesario tambien se puede crear un `MachineConfigPool` para los nodos de infra:
 
        $ mkdir /opt/ocp4/infra
        vi infra-mcp.yaml
@@ -55,6 +55,6 @@ Cualquier nodo que corra cualquier otro contenedor, pod o componente es un worke
 
     Nota: Esto tarda unos minutos porque los nodos se reinician durante el proceso.
 
-7. Añadir taint a los nodos de infra para que no se ejecuten pods del cliente:
+7. Añadir taint a los nodos de infra para que no se ejecuten pods de aplicaciones de usuarios:
 
        oc adm taint nodes -l node-role.kubernetes.io/infra infra=reserved:NoSchedule infra=reserved:NoExecute
