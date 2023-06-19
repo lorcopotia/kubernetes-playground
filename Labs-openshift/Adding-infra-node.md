@@ -17,7 +17,7 @@ Cualquier nodo que corra cualquier otro contenedor, pod o componente es un worke
 
 ## Procedimiento
 
-1. [Añadir un nodo worker](Adding-worker-node)
+1. [Añadir un nodo worker](https://github.com/lorcopotia/kubernetes-playground/blob/master/Labs-openshift/Adding-worker-node.md)
 
 2. Etiquetar los nodos de "infra":
 
