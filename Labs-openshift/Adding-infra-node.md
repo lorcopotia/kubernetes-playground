@@ -17,7 +17,7 @@ Cualquier nodo que corra cualquier otro contenedor, pod o componente es un worke
 
 ## Procedimiento
 
-1. [Crear un MachineSet](https://github.com/lorcopotia/kubernetes-playground/blob/master/Labs-openshift/Adding-worker-node.md) para el nodo infra.
+1. [Crear un MachineSet](https://github.com/lorcopotia/kubernetes-playground/blob/master/Labs-openshift/Adding-worker-node.md) para el nodo infra. Asegurandonos que que el MachineSet quede de la manera que se muestra en el [ejemplo](https://access.redhat.com/solutions/5034771).
 
 2. En su efecto se puede etiquetar los nodos de "infra" de la siguiente manera:
 
