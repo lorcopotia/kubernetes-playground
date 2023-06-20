@@ -43,7 +43,7 @@ Requisitos:
 
   1.8. Cuando el pod este corriendo pulsar Ctrl+C para salir del watch y continuar.
 
-  1.9. Comprobar nuevamenete las variables de entorno definidas dentro del pod:
+  1.9. Comprobar nuevamente las variables de entorno definidas dentro del pod:
 
     $ oc exec <printenv-X-XXX> -- printenv |grep APP
     APP_VAR_1=Value1
