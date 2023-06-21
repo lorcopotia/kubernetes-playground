@@ -68,7 +68,20 @@ kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-
 ```
 
 # Openshift
-# Manejo de imágenes
+## Configuración de openshift-image-registry
+En entornos de **Desarrollo** para configurar el almacenamiento de tipo emptyDir (las imágenes se perderán si se reinicia el registry):
+```shell
+oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch '{"spec":{"storage":{"emptyDir":{}}}}'
+```
+Si ejecuta este comando antes de que el Operador de registro de imágenes inicialice sus componentes, el comando oc patch falla con el siguiente error:
+
+```shell
+Error from server (NotFound): configs.imageregistry.operator.openshift.io "cluster" not found
+```
+Espere unos minutos y vuelva a ejecutar el comando.
+
+Para configurar almacenamiento persistente por ejemplo en vSphere ir a la (documentación)[https://access.redhat.com/documentation/es-es/openshift_container_platform/4.12/html/registry/setting-up-and-configuring-the-registry#registry-configuring-storage-vsphere_configuring-registry-storage-vsphere].
+
 ## Listar imágenes por Pods y Namespace
 ```shell
 oc get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' | sort
