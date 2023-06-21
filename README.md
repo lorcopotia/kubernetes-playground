@@ -144,7 +144,32 @@ rules:
 ```shell
 oc adm policy add-cluster-role-to-user discovery_role USUARIO
 ```
+
+# Administración y gestión del cluster
+## Configuracion del perfil del scheduler (distribuidor de pods)
+Para utilizar cualquiera de los perfiles de scheduler en Openshift o sea, decirle a Openshift como queremos que distrubuya nuestros pods por el clúster, utilizamos el siguiente comando:
+```shell
+oc edit scheduler cluster
+```
+
+Que luego nos permitirá utilizar uno de los perfiles LowNodeUtilization, HighNodeUtilization, or NoScoring , segun nuestra preferencia, ej:
+```yaml
+apiVersion: config.openshift.io/v1
+kind: Scheduler
+metadata:
+  ...
+  name: cluster
+  resourceVersion: "601"
+  selfLink: /apis/config.openshift.io/v1/schedulers/cluster
+  uid: b351d6d0-d06f-4a99-a26b-87af62e79f59
+spec:
+  mastersSchedulable: false
+  profile: HighNodeUtilization
+```
+
+
 ## Openshift upgrade message: Precondition "ClusterVersionUpgradeable" failed
 ```shell
 oc patch clusterversion version --type json -p '[{"op": "remove", "path": "/spec/overrides"}]'
 ```
+
