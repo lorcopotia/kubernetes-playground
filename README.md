@@ -80,7 +80,7 @@ Error from server (NotFound): configs.imageregistry.operator.openshift.io "clust
 ```
 Espere unos minutos y vuelva a ejecutar el comando.
 
-Para configurar almacenamiento persistente por ejemplo en vSphere ir a la (documentación)[https://access.redhat.com/documentation/es-es/openshift_container_platform/4.12/html/registry/setting-up-and-configuring-the-registry#registry-configuring-storage-vsphere_configuring-registry-storage-vsphere].
+Para configurar almacenamiento persistente por ejemplo en vSphere ir a la [documentación](https://access.redhat.com/documentation/es-es/openshift_container_platform/4.12/html/registry/setting-up-and-configuring-the-registry#registry-configuring-storage-vsphere_configuring-registry-storage-vsphere).
 
 ## Listar imágenes por Pods y Namespace
 ```shell
