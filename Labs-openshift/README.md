@@ -70,6 +70,11 @@ Descargar el cliente oc y el instalador específico para la versión de Openshif
 
 Ejecutar el siguiente comando para lanzar la instalación:
 ```shell
+# Tener en cuenta hacer copia de seguridad del install-config.yaml ya que al momento de despliegue este fichero desaparece
 ./openshift-install create cluster --dir path/to/install-config --log-level=info
 ```
 
+Ejecutar el siguiente comando para destruir el cluster:
+```shell
+./openshift-install destroy cluster --dir path/to/install-config --log-level=info
+```
