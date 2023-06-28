@@ -12,6 +12,7 @@ OpenShift es una plataforma de contenedores y orquestación de aplicaciones basa
 ## Instalación IPI:
 Previamente a la instalacion hay informacion es requisito tener la informacion del fichero [install-config.yaml](https://examples.openshift.pub/cluster-installation/vmware/ipi-proxy/#example-install-configyaml) debidamente completada asi como demás requisitos de DNS, DHCP, firewall, etc.
 
+El siguiente ejemplo utiliza vSphere como destino:
 ```shell
 # cat install-config.yaml
 apiVersion: v1
@@ -63,5 +64,12 @@ platform:
 fips: false
 pullSecret: ''
 sshKey: ''
+```
+
+Descargar el cliente oc y el instalador específico para la versión de Openshift deseada o determinada por la compatibilidad con la versión de vCenter del siguiente [link](https://mirror.openshift.com/pub/openshift-v4/clients/ocp/)
+
+Ejecutar el siguiente comando para lanzar la instalación:
+```shell
+./openshift-install create cluster --dir path/to/install-config --log-level=info
 ```
 
