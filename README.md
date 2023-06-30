@@ -93,13 +93,15 @@ oc get pods --namespace <namespace> -o jsonpath="{.items[*].spec.containers[*].i
 
 # Manejo de usuarios
 ## Nuevo usuario HTPASSWD
+[Enlace](https://docs.openshift.com/container-platform/4.12/authentication/identity_providers/configuring-htpasswd-identity-provider.html) a documentacion oficial.
 ```shell
-htpasswd -bB htpasswd USUARIO PASSWD
+htpasswd -c -B -b </path/to/users.htpasswd> <user_name> <password>
+htpasswd -c -B -b users.htpasswd ocp-admin Sup3rS3cr3t!
 ```
 
 ## Crear secreto utilizando el fichero anterior como fuente
 ```shell
-oc create secret generic htpass-secret --from-file=htpasswd=htpasswd --dry-run=client -o yaml -n openshift-config | oc replace -f -
+oc create secret generic htpass-secret --from-file=htpasswd=users.htpasswd --dry-run=client -o yaml -n openshift-config | oc replace -f -
 ```
 
 ## Verificar el cambio
