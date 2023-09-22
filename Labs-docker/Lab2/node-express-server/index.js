@@ -3,7 +3,7 @@ const app = express(),
       port = 3080;
 
 app.get('/', (req,res) => {
-    res.send('App Works !!!');
+    res.send('La plicacion FUNCIONA !!!');
 });
 
 app.get('/time', (req,res) => {
