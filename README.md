@@ -62,12 +62,28 @@ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 curl -ks -X GET -H 'Authorization: Bearer $TOKEN' "https://prometheus-k8s-openshift-monitoring.apps.cluster.ocp.local/api/v1/query?query=(kubelet_volume_stats_used_bytes*100)/kubelet_volume_stats_capacity_bytes" | jq  -r '.data.result[] |"\(.metric.persistentvolumeclaim)=\(.value[1])%"'
 ```
 
-## Para saber que pods usan una imagen determinada:
+## Filtrado con JQ de queries a la API K8s/OCP:
+A continuación un grupo de filtros de jq para distintas ocaciones. Estos filtros han sido utilizados en llamadas a la API de Openshift pero en general podrian utilizarse para filtrar salidas JSON.
 ```shell
+### Para saber que pods usan una imagen determinada:
 kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).spec.containers[].image'
+
+### Nombre de POD y hora de inicio
+oc get pods -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.startTime}{"\n"}{end}'
+
+'{range .items[*]}[{.status.conditions.message}, {.status.conditions.status}] {"\n"}{end}'
+
+'{.items[*]}[{.status.conditions.message}, {.status.conditions.status}] {"\n"}'
+'{.items[*].status.conditions[?(@.status=="True")].message}{"\n\n"}'
 ```
 
 # Openshift
+## Informacion de red
+```shell
+### Muestra informacion de las subredes 
+oc/kubectl get networks/cluster -o jsonpath="{.status}" | jq -r '{ "Cluster Network": .clusterNetwork[].cidr, "Service Network": .serviceNetwork[] }'
+```
+
 ## Configuración de openshift-image-registry
 En entornos de **Desarrollo** para configurar el almacenamiento de tipo emptyDir (las imágenes se perderán si se reinicia el registry):
 ```shell
@@ -82,13 +98,16 @@ Espere unos minutos y vuelva a ejecutar el comando.
 
 Para configurar almacenamiento persistente por ejemplo en vSphere ir a la [documentación](https://access.redhat.com/documentation/es-es/openshift_container_platform/4.12/html/registry/setting-up-and-configuring-the-registry#registry-configuring-storage-vsphere_configuring-registry-storage-vsphere).
 
-## Listar imágenes por Pods y Namespace
+## Gestion de imagenes
 ```shell
 oc get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' | sort
 
+### Lista las imagenes de los contenedores por NAMESPACE
+oc/kubectl get pods --namespace <namespace> -o jsonpath="{.items[*].spec.containers[*].image}"
 oc get pods --namespace <namespace> -o jsonpath="{.items[*].spec.containers[*].image}"
 
- oc import-image image-custom --from=docker.io/lorcopotia/image-custom:latest --confirm
+### Importar imagenes de DockerHub
+oc import-image image-custom --from=docker.io/lorcopotia/image-custom:latest --confirm
 ```
 
 # Manejo de usuarios
