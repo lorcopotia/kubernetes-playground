@@ -1,6 +1,6 @@
 # Instrucciones Laboratorio 1
 
-## Crear proyecos, pods, services, routes, etc
+## Crear proyectos, pods, services, routes, etc
 
 Nota: Cambiar el nombre del namespace en el fichero yaml por el que se este usando en cada caso
 
