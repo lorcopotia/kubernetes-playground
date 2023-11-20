@@ -78,3 +78,33 @@ Ejecutar el siguiente comando para destruir el cluster:
 ```shell
 ./openshift-install destroy cluster --dir path/to/install-config --log-level=info
 ```
+## Instalacion en locaL utilizando CRC
+
+Para la instalacion seguir la [guia](https://www.redhat.com/sysadmin/codeready-containers).
+Luego configurar el haproxy en el caso de utilizar linux editar _/etc/haproxy/haproxy.cfg_:
+```
+vim /etc/haproxy/haproxy.cfg
+```
+
+Utilizar lo siguiente:
+```
+global
+    log /dev/log local0
+defaults
+    balance roundrobin
+    log global
+    maxconn 100
+    mode tcp
+    timeout connect 5s
+    timeout client 500s
+    timeout server 500s
+listen apps
+    bind 0.0.0.0:80
+    server crcvm 192.168.130.11:80 check
+listen apps_ssl
+    bind 0.0.0.0:443
+    server crcvm 192.168.130.11:443 check
+listen api
+    bind 0.0.0.0:6443
+    server crcvm 192.168.130.11:6443 check
+```
