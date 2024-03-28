@@ -1,0 +1,356 @@
+# Para obtener el token almacenado en el secreto ejecutamos:
+# kubectl/oc get secret ${NOMBRE_USUARIO}-secret -n NOMBRE_PROYECTO -o jsonpath={".data.token"} | base64 -d
+#
+
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: acceso-viewer
+  annotations:
+    description: "Configuracion de acceso a usuario con acceso limitado"
+    iconClass: "icon-openshift"
+    tags: "view,report"
+objects:
+  - apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: ${NOMBRE_USUARIO}
+      namespace: ${NOMBRE_PROYECTO}
+  - kind: Secret
+    apiVersion: v1
+    metadata:
+      name: ${NOMBRE_USUARIO}-secret
+      annotations:
+        kubernetes.io/service-account.name: "${NOMBRE_USUARIO}"
+    type: kubernetes.io/service-account-token
+  - apiVersion: v1
+    kind: ClusterRoleBinding
+    metadata:
+      name: ${NOMBRE_CRB}
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: ${NOMBRE_CR}
+    subjects:
+      - kind: User
+        name: ${NOMBRE_USUARIO}
+        namespace: ${NOMBRE_PROYECTO}
+  - kind: ClusterRole
+    apiVersion: rbac.authorization.k8s.io/v1
+    metadata:
+      name: ${NOMBRE_CR}
+    rules:
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - operators.coreos.com
+        resources:
+          - clusterserviceversions
+          - catalogsources
+          - installplans
+          - subscriptions
+          - operatorgroups
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - packages.operators.coreos.com
+        resources:
+          - packagemanifests
+          - packagemanifests/icon
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - packages.operators.coreos.com
+        resources:
+          - packagemanifests
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+          - image.openshift.io
+        resources:
+          - imagestreamimages
+          - imagestreammappings
+          - imagestreams
+          - imagestreamtags
+          - imagetags
+      - verbs:
+          - get
+        apiGroups:
+          - ""
+          - image.openshift.io
+        resources:
+          - imagestreams/layers
+      - verbs:
+          - get
+        apiGroups:
+          - ""
+        resources:
+          - namespaces
+      - verbs:
+          - get
+        apiGroups:
+          - ""
+          - project.openshift.io
+        resources:
+          - projects
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+        resources:
+          - configmaps
+          - endpoints
+          - persistentvolumeclaims
+          - persistentvolumeclaims/status
+          - pods
+          - replicationcontrollers
+          - replicationcontrollers/scale
+          - serviceaccounts
+          - services
+          - services/status
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+        resources:
+          - bindings
+          - events
+          - limitranges
+          - namespaces/status
+          - pods/log
+          - pods/status
+          - replicationcontrollers/status
+          - resourcequotas
+          - resourcequotas/status
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+        resources:
+          - namespaces
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - discovery.k8s.io
+        resources:
+          - endpointslices
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - apps
+        resources:
+          - controllerrevisions
+          - daemonsets
+          - daemonsets/status
+          - deployments
+          - deployments/scale
+          - deployments/status
+          - replicasets
+          - replicasets/scale
+          - replicasets/status
+          - statefulsets
+          - statefulsets/scale
+          - statefulsets/status
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - autoscaling
+        resources:
+          - horizontalpodautoscalers
+          - horizontalpodautoscalers/status
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - batch
+        resources:
+          - cronjobs
+          - cronjobs/status
+          - jobs
+          - jobs/status
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - extensions
+        resources:
+          - daemonsets
+          - daemonsets/status
+          - deployments
+          - deployments/scale
+          - deployments/status
+          - ingresses
+          - ingresses/status
+          - networkpolicies
+          - replicasets
+          - replicasets/scale
+          - replicasets/status
+          - replicationcontrollers/scale
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - policy
+        resources:
+          - poddisruptionbudgets
+          - poddisruptionbudgets/status
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - networking.k8s.io
+        resources:
+          - ingresses
+          - ingresses/status
+          - networkpolicies
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+          - build.openshift.io
+        resources:
+          - buildconfigs
+          - buildconfigs/webhooks
+          - builds
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+          - build.openshift.io
+        resources:
+          - builds/log
+      - verbs:
+          - view
+        apiGroups:
+          - build.openshift.io
+        resources:
+          - jenkins
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+          - apps.openshift.io
+        resources:
+          - deploymentconfigs
+          - deploymentconfigs/scale
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+          - apps.openshift.io
+        resources:
+          - deploymentconfigs/log
+          - deploymentconfigs/status
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+          - image.openshift.io
+        resources:
+          - imagestreams/status
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+          - quota.openshift.io
+        resources:
+          - appliedclusterresourcequotas
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+          - route.openshift.io
+        resources:
+          - routes
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+          - route.openshift.io
+        resources:
+          - routes/status
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+          - template.openshift.io
+        resources:
+          - processedtemplates
+          - templateconfigs
+          - templateinstances
+          - templates
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+          - build.openshift.io
+        resources:
+          - buildlogs
+      - verbs:
+          - get
+          - list
+          - watch
+        apiGroups:
+          - ""
+        resources:
+          - resourcequotausages
+parameters:
+  - description: Nombre de proyecto 
+    value: "default"
+    name: NOMBRE_PROYECTO
+  - description: Nombre del User
+    value: "custom-viewer-user"
+    name: NOMBRE_USUARIO
+  - description: Nombre ClusterRoleBinding
+    value: "custom-viewer-crb"
+    name: NOMBRE_CRB
+  - description: Nombre ClusterRole
+    value: "custom-viewer-cr"
+    name: NOMBRE_CR
+labels:
+  access: operations
