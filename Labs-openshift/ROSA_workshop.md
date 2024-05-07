@@ -1,10 +1,6 @@
 
 # Instructions for ROSA Workshop Barcelona
 
-Lab User Interface
-
-[https://bookbag-n7fd6-bookbag.apps.shared-410.openshift.redhatworkshops.io/](https://bookbag-n7fd6-bookbag.apps.shared-410.openshift.redhatworkshops.io/)
-
 ## URLs
 
 https://cloud.redhat.com/experts/
@@ -16,10 +12,6 @@ https://github.com/rh-mobb/aro-workshop-content
 ROSA:
 http://rosa-ws.mobb.cloud/
 https://github.com/rh-mobb/rosa-workshop-content
-
-Messages
-
-Lab instructions: [https://bookbag-n7fd6-bookbag.apps.shared-410.openshift.redhatworkshops.io/](https://bookbag-n7fd6-bookbag.apps.shared-410.openshift.redhatworkshops.io/)
 
 Data
 
