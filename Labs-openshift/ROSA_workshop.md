@@ -14,7 +14,7 @@ http://rosa-ws.mobb.cloud/
 https://github.com/rh-mobb/rosa-workshop-content
 
 Data
-
+```
 aws_access_key_id: ADSDFJYTJTEE123456
 aws_default_region: eu-central-1
 aws_route53_domain: .sandbox198.example.com
@@ -30,7 +30,7 @@ rosa_sandbox_account_id: '067187224584'
 rosa_subdomain_base: n1234.sandbox198.example.com
 rosa_token_warning: true
 rosa_user_password: Sup3rS3cr3t!
-
+```
 
 ## Commands
 
