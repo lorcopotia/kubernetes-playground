@@ -78,9 +78,12 @@ Ejecutar el siguiente comando para destruir el cluster:
 ```shell
 ./openshift-install destroy cluster --dir path/to/install-config --log-level=info
 ```
-## Instalacion en locaL utilizando CRC
+## Instalación en local utilizando CRC
 
-Para la instalacion seguir la [guia](https://www.redhat.com/sysadmin/codeready-containers).
+Para la instalación seguir la [guia](https://www.redhat.com/sysadmin/codeready-containers).
+
+### HAProxy
+
 Luego configurar el haproxy en el caso de utilizar linux editar _/etc/haproxy/haproxy.cfg_:
 ```
 vim /etc/haproxy/haproxy.cfg
@@ -108,3 +111,21 @@ listen api
     bind 0.0.0.0:6443
     server crcvm 192.168.130.11:6443 check
 ```
+
+### Apache proxy
+
+# Routes detrás de Apache proxy
+
+Para acceder a _routes_ de Openshift que son redireccionadas por un Apache proxy, dependiendo del caso específico, es necesario aplicar la sigiuente configuración:
+
+- En Apache, ver [doc](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#proxypreservehost) oficial:
+
+   ```yaml
+   ProxyPreserveHost Off
+   ``` 
+- En el Ingress Controller añadir lo siguiente, ver [doc](https://docs.openshift.com/container-platform/4.14/networking/ingress-operator.html#nw-ingress-controller-configuration-parameters_configuring-ingress) oficial: 
+
+   ```yaml
+   httpHeaders: 
+     forwardedHeaderPolicy: Never
+   ``` 
