@@ -82,6 +82,20 @@ Ejecutar el siguiente comando para destruir el cluster:
 
 Para la instalación seguir la [guia](https://www.redhat.com/sysadmin/codeready-containers).
 
+### Configuración adicional
+
+Configurar en `/etc/libvirt/qemu.conf`
+
+```
+security_driver = "none"
+
+user = "username"
+group = "libvirt-qemu"
+```
+
+Asegurase de estar en el grupo especificado con `sudo usermod -aG libvirt-qemu username`.
+
+
 ### HAProxy
 
 Luego configurar el haproxy en el caso de utilizar linux editar _/etc/haproxy/haproxy.cfg_:
