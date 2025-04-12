@@ -57,6 +57,39 @@ TOKEN=$(kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.s
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
 
+## Habilitar el uso de métricas
+Usualmente cuando desplegamos un cluster desde cero e intentamos consultar las métricas con el siguiente comando obtenemos:
+```bash
+kubectl top node
+error: Metrics API not available
+```
+
+Para habilitarlas, ejecutamos:
+```bash
+# wget para descargar el Yaml
+wget https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+# Editamos el fichero para añadir --kubelet-insecure-tls como argumento
+vim components.yaml
+```
+
+Quedando de esta manera:
+```yaml
+  template:
+    metadata:
+      labels:
+        k8s-app: metrics-server
+    spec:
+      containers:
+      - args:
+        - --cert-dir=/tmp
+        - --secure-port=10250
+        - --kubelet-preferred-address-types=InternalIP #,ExternalIP,Hostname
+        - --kubelet-use-node-status-port
+        - --metric-resolution=15s
+        - --kubelet-insecure-tls
+```
+
 ## Query a la API de Prometheus para obtener el porciento de ocupación de los PVs
 ```shell
 curl -ks -X GET -H 'Authorization: Bearer $TOKEN' "https://prometheus-k8s-openshift-monitoring.apps.cluster.ocp.local/api/v1/query?query=(kubelet_volume_stats_used_bytes*100)/kubelet_volume_stats_capacity_bytes" | jq  -r '.data.result[] |"\(.metric.persistentvolumeclaim)=\(.value[1])%"'
