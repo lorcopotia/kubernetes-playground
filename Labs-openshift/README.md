@@ -84,7 +84,7 @@ Para la instalación seguir la [guia](https://www.redhat.com/sysadmin/codeready-
 
 ### Debian
 
-Si se quiere utilizar `crc` debemos aplicar la siguiente configuracion:
+Si se quiere utilizar `crc` debemos aplicar la siguiente configuración:
 
 ```bash
 crc config set skip-check-vsock true
@@ -139,9 +139,7 @@ listen api
     server crcvm 192.168.130.11:6443 check
 ```
 
-### Apache proxy
-
-# Routes detrás de Apache proxy
+### Routes detrás de Apache proxy
 
 Para acceder a _routes_ de Openshift que son redireccionadas por un Apache proxy, dependiendo del caso específico, es necesario aplicar la sigiuente configuración:
 
