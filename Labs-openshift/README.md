@@ -82,11 +82,19 @@ Ejecutar el siguiente comando para destruir el cluster:
 
 Para la instalación seguir la [guia](https://www.redhat.com/sysadmin/codeready-containers).
 
+### Debian
+
+Si se quiere utilizar `crc` debemos aplicar la siguiente configuracion:
+
+```bash
+crc config set skip-check-vsock true
+```
+
 ### Configuración adicional
 
-Configurar en `/etc/libvirt/qemu.conf`
+- Configurar en `/etc/libvirt/qemu.conf`
 
-```
+```yaml
 security_driver = "none"
 
 user = "username"
@@ -95,6 +103,11 @@ group = "libvirt-qemu"
 
 Asegurase de estar en el grupo especificado con `sudo usermod -aG libvirt-qemu username`.
 
+- Deshabilitamos la recogida anonima de datos
+
+```bash
+crc config set consent-telemetry no
+```
 
 ### HAProxy
 
